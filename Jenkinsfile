@@ -23,7 +23,11 @@ pipeline {
 
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            script {
+                if (fileExists('target/surefire-reports')) {
+                    junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
+                }
+            }
         }
     }
 }
